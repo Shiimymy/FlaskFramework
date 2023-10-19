@@ -1,4 +1,5 @@
 import os
+import json
 from flask import Flask, render_template
 
 app = Flask(__name__)
@@ -11,7 +12,16 @@ def index():
 
 @app.route("/about")
 def about():
-    return render_template("about.html", page_title="About")
+    data = []
+    with open("data/company.json", "r") as json_data:
+        '''
+        It is call a "with block",
+        r = ready only,
+        the file is asign to new variable called json_data
+
+        '''
+        data = json.load(json_data)
+    return render_template("about.html", page_title="About", company=data)
 
 
 @app.route("/contact")
